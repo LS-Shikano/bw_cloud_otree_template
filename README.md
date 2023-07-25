@@ -26,6 +26,10 @@ This will start an interactive session in your terminal during which you have to
  
 - os_user_id: Go to https://portal.bw-cloud.org/identity/users/ and insert the User ID. 
 
+- github_repo: Provide the GitHub repo of the OTree experiment you want to deploy. Example: https://github.com/LS-Shikano/BallotExp_clean
+
+- github_token: Provide a GitHub token that can access the repo. Follow [this](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) tutorial. Select LS-Shikano as resource owner. Select "only selected repositories" and select the repo containing the experiment. Under Repo permissions select **Read only** for **Content**.
+
 
 ## Steps after Generation
 

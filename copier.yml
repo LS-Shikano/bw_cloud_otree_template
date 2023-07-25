@@ -15,6 +15,19 @@ os_user_id:
     type: str
     help: Provide your user id on OpenStack 
  
+github_repo:
+    type: str
+    help: Provide the GitHub repo of the OTree experiment you want to deploy
 
+github_token:
+    type: str
+    help: Provide a GitHub token that can access the repo
 
+ansible_vault_pw:
+    type: str
+    help: Provide a password to encrypt the ansible vault with
 
+_tasks:
+    - "rm {{ name_of_the_project }}/README.md"
+    - echo "{{  ansible_vault_pw  }}" > {{ name_of_the_project }}/ansible/.vault_pw
+    - ansible-vault encrypt {{ name_of_the_project }}/ansible/group_vars/vault.yml --vault-password-file={{ name_of_the_project }}/ansible/.vault_pw  -v
