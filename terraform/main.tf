@@ -1,6 +1,6 @@
 resource "openstack_networking_secgroup_v2" "main" {
-  name        = "${server.name}"
-  description = "${server.name} security group"
+  name        = "${var.server.name}"
+  description = "${var.server.name} security group"
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_1" {
@@ -45,9 +45,9 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_4" {
 
 
 resource "openstack_compute_instance_v2" "main" {
-  name            = "${server.name}"
-  image_name      = "${server.image}"
-  flavor_name       = "${server.flavor}"
+  name            = "${var.server.name}"
+  image_name      = "${var.server.image}"
+  flavor_name       = "${var.server.flavor}"
   security_groups = ["${openstack_networking_secgroup_v2.main.name}"]
   user_data = <<EOF
 #cloud-config

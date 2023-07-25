@@ -38,9 +38,8 @@ This will start an interactive session in your terminal during which you have to
     OS_APPLICATION_CREDENTIAL_SECRET="secret"
     ```
 
-2. Initialize terraform
+2. Navigate to the terraform subfolder and initialize terraform.
     ```
-    cd terraform
     terraform init
     ```
 3. If you dont want to change the terraform script, run the teraform apply command. The generates a plan you can review before approving it. After approval the VPS will be created.
