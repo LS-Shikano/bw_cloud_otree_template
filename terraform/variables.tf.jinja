@@ -5,15 +5,18 @@ variable "server" {
   default = {
     name        = "{{server_name}}"
     flavor = "{{server_flavor}}"
-    image       = "{{server_image}}"
+    # See https://www.bw-cloud.org/de/bwcloud_scope/images
+    image       = "Ubuntu 20.04"
     user = "deploy_user"
   }
 }
 
+
+
 variable "docker_compose_version" {
   type        = string
   description = "Docker compose version to install"
-  default     =  "{{docker_compose_version}}"
+  default     =  "2.20.0"
 } 
 
 

@@ -12,11 +12,19 @@ This is a Copier IaC template to deploy an OTree experiment on the LS Shikano BW
     ```
 
 ## Generate project
+To generate an IaC project from this repo, run the command below and replace "experiment_name" with a suitable name.
 ```
-copier copy gh:jstet/docker_compose_host_hetzner  <project_name>
+copier copy gh:LS-Shikano/bw_cloud_otree_template <experiment_name>
 ```
-This will start an interactive prompt.
+This will start an interactive session in your terminal during which you have to provide:
 
+- server_name: Hostname and name of server in the BWCloud portal. Valid characters for hostnames are ASCII(7) letters from a to z, the digits from 0 to 9, and the hyphen (-). A hostname may not start with a hyphen.
+    
+- server_flavor: What type of server do you want to create? This determines the ressources that are allocated for the server. See https://www.bw-cloud.org/de/bwcloud_scope/flavors
+
+- ssh_key_path: Under which path is your public ssh key located? Example: /home/jstet/.ssh/id_rsa.pub
+ 
+- os_user_id: Go to https://portal.bw-cloud.org/identity/users/ and insert the User ID. 
 
 
 ## Steps after Generation
@@ -41,13 +49,4 @@ This will start an interactive prompt.
     ```
 4. Navigate to the ansible subfolder
 
-## Configurable Vars
-- Name of server
-- Server Type
-- Image
-- Location
-- Backups
-- docker compose version
-- ssh key path
-- dns zone name
-- subdomain 
+

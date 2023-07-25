@@ -7,20 +7,9 @@ server_flavor:
     help: What type of server do you want to create? See https://www.bw-cloud.org/de/bwcloud_scope/flavors
     default: m1.medium
 
-server_image: 
-    type: str
-    help: Which image do you want to use? See https://www.bw-cloud.org/de/bwcloud_scope/images
-    default: Ubuntu 20.04
-
 ssh_key_path:
     type: str
     help: Under which path is your ssh key located?
-    default: /home/jstet/.ssh/id_rsa.pub
-
-docker_compose_version:
-  type: str
-  help: What version of docker-compose do you want to use?
-  default: 2.20.0
 
 os_user_id:
     type: str
