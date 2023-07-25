@@ -14,7 +14,7 @@ This is a Copier IaC template to deploy an OTree experiment on the LS Shikano BW
 ## Generate project
 To generate an IaC project from this repo, run the command below and replace "experiment_name" with a suitable name.
 ```
-copier copy gh:LS-Shikano/bw_cloud_otree_template <experiment_name>
+copier copy --UNSAFE gh:LS-Shikano/bw_cloud_otree_template <experiment_name>
 ```
 This will start an interactive session in your terminal during which you have to provide:
 

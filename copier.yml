@@ -28,6 +28,6 @@ ansible_vault_pw:
     help: Provide a password to encrypt the ansible vault with
 
 _tasks:
-    - "rm {{ name_of_the_project }}/README.md"
-    - echo "{{  ansible_vault_pw  }}" > {{ name_of_the_project }}/ansible/.vault_pw
-    - ansible-vault encrypt {{ name_of_the_project }}/ansible/group_vars/vault.yml --vault-password-file={{ name_of_the_project }}/ansible/.vault_pw  -v
+    - "rm README.md"
+    - echo "{{  ansible_vault_pw  }}" > ansible/.vault_pw
+    - ansible-vault encrypt ansible/group_vars/vault.yml --vault-password-file=ansible/.vault_pw  -v
