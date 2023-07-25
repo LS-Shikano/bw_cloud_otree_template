@@ -1,0 +1,40 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=main
+    ports:
+      - '5432:5432'
+    networks:
+      - db
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  otree:
+    container_name: otree
+    image: otree
+    build: ./
+    ports:
+      - 8000
+    environment:
+      - OTREE_ADMIN_PASSWORD={{  otree_admin_password  }}
+      - OTREE_PRODUCTION=1
+      - OTREE_AUTH_LEVEL=STUDY
+      - DATABASE_URL=postgres://postgres@postgres:5432/main
+    caddy: "{{ domain }}"
+    caddy.reverse_proxy: "{% raw %}{{upstreams 8000}}{% endraw %}"
+    networks:
+      - caddy
+      - db
+
+networks:
+  caddy:
+    external: true
+  db:
+
+volumes:
+  db:

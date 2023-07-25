@@ -8,18 +8,17 @@
 
   tasks:
     - block:
-      - name: Configure server to be CIS compliant
+      - name: Add some security to make server partially CIS compliant
         include_role:
           name: ansible-lockdown.ubuntu20-cis
         vars:
-          ubtu20cis_section1_patch: true
-          ubtu20cis_section2_patch: true
+          ubtu20cis_section1_patch: false
+          ubtu20cis_section2_patch: false
           # firewall is handled by OpenStack(BWCloud), docker and firewalls are tricky
           ubtu20cis_section3_patch: false
           ubtu20cis_section4_patch: true
           ubtu20cis_section5_patch: true
           ubtu20cis_section6_patch: false
-          ubtu20cis_rule_1_1_1_2: false
           ubtu20cis_sshd:
             log_level: "INFO"
             max_auth_tries: 4
@@ -60,6 +59,15 @@
     - name: deploying caddy
       shell: |
         cd caddy && docker compose up -d
+    
+    - name: Create dir for OTree
+      file:
+        path: "/home/{{  ansible_user   }}/otree"
+        state: directory
+        owner: "{{  ansible_user   }}"
+        mode: 0775
+    
+    
 
 
 
