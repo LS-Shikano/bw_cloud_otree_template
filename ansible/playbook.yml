@@ -1,0 +1,69 @@
+---
+- hosts: all
+  gather_facts: true
+  become: false
+  vars_files:
+    - group_vars/main.yml
+    - group_vars/vault.yml
+
+  tasks:
+    - block:
+      - name: Configure server to be CIS compliant
+        include_role:
+          name: ansible-lockdown.ubuntu20-cis
+        vars:
+          ubtu20cis_section1_patch: true
+          ubtu20cis_section2_patch: true
+          # firewall is handled by OpenStack(BWCloud), docker and firewalls are tricky
+          ubtu20cis_section3_patch: false
+          ubtu20cis_section4_patch: true
+          ubtu20cis_section5_patch: true
+          ubtu20cis_section6_patch: false
+          ubtu20cis_rule_1_1_1_2: false
+          ubtu20cis_sshd:
+            log_level: "INFO"
+            max_auth_tries: 4
+            client_alive_interval: 299
+            client_alive_count_max: 2
+            ciphers: "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr"
+            macs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256"
+            kex_algorithms: "curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256"
+            login_grace_time: 59
+            max_sessions: 2
+            allow_users: "{{ ansible_user }}"
+          ubtu20cis_ipv4_required: true
+          ubtu20cis_no_owner_adjust: false
+          ubtu20cis_no_group_adjust: false
+      become: true
+
+    - name: Unconditionally reboot the machine with all defaults
+      ansible.builtin.reboot:
+      become: true
+
+    - name: Create dir for caddy
+      file:
+        path: "/home/{{  ansible_user   }}/caddy"
+        state: directory
+        owner: "{{  ansible_user   }}"
+        mode: 0775
+
+    - name: copy caddy docker compose to server
+      copy:
+        src: files/docker-compose.yml
+        dest: "/home/{{  ansible_user   }}/caddy/docker-compose.yml"
+
+    - name: creating network for caddy
+      shell: |
+        docker network inspect caddy >/dev/null 2>&1 || \
+        docker network create caddy
+
+    - name: deploying caddy
+      shell: |
+        cd caddy && docker compose up -d
+
+
+
+
+
+
+

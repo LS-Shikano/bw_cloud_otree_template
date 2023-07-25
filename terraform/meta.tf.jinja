@@ -1,0 +1,22 @@
+terraform {
+required_version = ">= 0.14.0"
+  required_providers {
+    openstack = {
+      source  = "terraform-provider-openstack/openstack"
+      version = "~> 1.48.0"
+    }
+  }
+}
+
+# Configure the OpenStack Provider
+provider "openstack" {
+  region      = "Freiburg"
+  auth_url    = "https://idm02.bw-cloud.org:5000/v3"
+  tenant_name = "freiburg_projekt_LSShikano"
+  tenant_id = "09a47e001d964626b41a97487f761831"
+  user_id = "{{ os_user_id  }}"
+  endpoint_overrides = {
+    "compute"  = "https://api02.fr.bw-cloud.org:8774/v2.1/"
+    "volumev3" = "https://api02.fr.bw-cloud.org:8776/v3/09a47e001d964626b41a97487f761831/"
+  }
+}

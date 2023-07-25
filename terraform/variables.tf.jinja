@@ -1,0 +1,30 @@
+# Optional configuration
+variable "server" {
+  type        = map(any)
+  description = "Server configuration map"
+  default = {
+    name        = "{{server_name}}"
+    flavor = "{{server_flavor}}"
+    image       = "{{server_image}}"
+    user = "deploy_user"
+  }
+}
+
+variable "docker_compose_version" {
+  type        = string
+  description = "Docker compose version to install"
+  default     =  "{{docker_compose_version}}"
+} 
+
+
+variable "ssh_key_path"{
+  type = string
+  default = "{{ssh_key_path}}"
+}
+
+
+
+
+
+
+
