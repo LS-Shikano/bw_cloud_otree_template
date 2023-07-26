@@ -22,7 +22,7 @@ This will start an interactive session in your terminal during which you have to
     
 - server_flavor: What type of server do you want to create? This determines the ressources that are allocated for the server. See https://www.bw-cloud.org/de/bwcloud_scope/flavors
 
-- ssh_key_path: Under which path is your public ssh key located? Example: /home/jstet/.ssh/id_rsa.pub
+- ssh_key_path: Under which path is your public ssh key located? Example: `/home/jstet/.ssh/id_rsa.pub`
  
 - os_user_id: Go to https://portal.bw-cloud.org/identity/users/ and insert the User ID. 
 
@@ -50,6 +50,10 @@ This will start an interactive session in your terminal during which you have to
     ```
     terraform apply
     ```
-4. Navigate to the ansible subfolder
-
+4. Wait 3-5 minutes for the VPS to be initialized. The Cloud Init script has to finish running. If you run the ansible script before, errors can occur.
+5. Navigate to the ansible subfolder and run
+    ```
+    ansible-playbook playbook.yml --vault-password-file=.vault_pw
+    ```
+6. You should now be able to access the OTree dashboard under the URL you can find in the file `ansible/group_vars/main.yml`
 

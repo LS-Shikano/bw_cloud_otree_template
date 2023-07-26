@@ -5,6 +5,7 @@
   vars_files:
     - group_vars/main.yml
     - group_vars/vault.yml
+    - group_vars/template_vars.yml
 
   tasks:
     - block:
@@ -59,13 +60,30 @@
     - name: deploying caddy
       shell: |
         cd caddy && docker compose up -d
+
+    - name: Set fact with modified github_repo
+      set_fact:
+        repo: "{{ github_repo | replace('https://', 'https://{{ github_token }}@') }}"
+      register: result
+
+    - name: Print the value of modified_github_repo
+      debug:
+        var: result['ansible_facts']['repo']
+
+    - name: Clone OTree experiment repo
+      ansible.builtin.git:
+        repo: "{{  repo  }}"
+        dest: "/home/{{  ansible_user   }}/otree"
+        force: yes
+
+    - name: template OTree docker compose to server
+      template:
+        src: templates/docker-compose.yml
+        dest: "/home/{{  ansible_user   }}/otree/docker-compose.yml"    
     
-    - name: Create dir for OTree
-      file:
-        path: "/home/{{  ansible_user   }}/otree"
-        state: directory
-        owner: "{{  ansible_user   }}"
-        mode: 0775
+    - name: build and start OTree server
+      shell: |
+        cd otree && docker compose up -d
     
     
 

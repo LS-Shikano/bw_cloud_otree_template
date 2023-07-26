@@ -23,11 +23,14 @@ github_token:
     type: str
     help: Provide a GitHub token that can access the repo
 
+otree_admin_pw:
+    type: str
+    help: Provide a password that will be used to access the OTree admin dashboard
+
 ansible_vault_pw:
     type: str
     help: Provide a password to encrypt the ansible vault with
 
 _tasks:
-    - "rm README.md"
     - echo "{{  ansible_vault_pw  }}" > ansible/.vault_pw
     - ansible-vault encrypt ansible/group_vars/vault.yml --vault-password-file=ansible/.vault_pw  -v

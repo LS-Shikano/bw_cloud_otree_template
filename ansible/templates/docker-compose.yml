@@ -21,12 +21,13 @@ services:
     ports:
       - 8000
     environment:
-      - OTREE_ADMIN_PASSWORD={{  otree_admin_password  }}
+      - OTREE_ADMIN_PASSWORD=1234
       - OTREE_PRODUCTION=1
       - OTREE_AUTH_LEVEL=STUDY
-      - DATABASE_URL=postgres://postgres@postgres:5432/main
-    caddy: "{{ domain }}"
-    caddy.reverse_proxy: "{% raw %}{{upstreams 8000}}{% endraw %}"
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/main
+    labels:
+      caddy: "{{ domain }}"
+      caddy.reverse_proxy: "{% raw %}{{upstreams 8000}}{% endraw %}"
     networks:
       - caddy
       - db
