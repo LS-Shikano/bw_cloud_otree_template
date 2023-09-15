@@ -50,7 +50,7 @@ This will start an interactive session in your terminal during which you have to
     ```
     terraform apply
     ```
-4. Wait 3-5 minutes for the VPS to be initialized. The Cloud Init script has to finish running. If you run the ansible script before, errors can occur.
+4. **Wait 5 minutes** for the VPS to be initialized. The Cloud Init script has to finish running. If you run the ansible script before, errors can occur. You can verify this by connecting to the server manually and then check if docker is installed by just typing `docker`
 5. Navigate to the ansible subfolder and run
     ```
     ansible-playbook playbook.yml --vault-password-file=.vault_pw

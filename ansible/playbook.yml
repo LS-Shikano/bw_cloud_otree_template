@@ -14,12 +14,13 @@
           name: ansible-lockdown.ubuntu20-cis
         vars:
           ubtu20cis_section1_patch: false
-          ubtu20cis_section2_patch: false
+          ubtu20cis_section2_patch: true
           # firewall is handled by OpenStack(BWCloud), docker and firewalls are tricky
           ubtu20cis_section3_patch: false
           ubtu20cis_section4_patch: true
+          ubtu20cis_rule_4_3_4: false
           ubtu20cis_section5_patch: true
-          ubtu20cis_section6_patch: false
+          ubtu20cis_section6_patch: true
           ubtu20cis_sshd:
             log_level: "INFO"
             max_auth_tries: 4
@@ -33,6 +34,7 @@
             allow_users: "{{ ansible_user }}"
           ubtu20cis_ipv4_required: true
           ubtu20cis_no_owner_adjust: false
+          ubtu20cis_set_grub_password: false
           ubtu20cis_no_group_adjust: false
       become: true
 
