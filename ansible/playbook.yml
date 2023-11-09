@@ -19,8 +19,8 @@
           ubtu20cis_section3_patch: false
           ubtu20cis_section4_patch: true
           ubtu20cis_rule_4_3_4: false
-          ubtu20cis_section5_patch: true
-          ubtu20cis_section6_patch: true
+          ubtu20cis_section5_patch: false
+          ubtu20cis_section6_patch: false
           ubtu20cis_sshd:
             log_level: "INFO"
             max_auth_tries: 4

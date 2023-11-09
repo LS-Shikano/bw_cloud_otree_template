@@ -21,7 +21,7 @@ services:
     ports:
       - 8000
     environment:
-      - OTREE_ADMIN_PASSWORD=1234
+      - OTREE_ADMIN_PASSWORD={{ otree_admin_pw }}
       - OTREE_PRODUCTION=1
       - OTREE_AUTH_LEVEL=STUDY
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/main
